@@ -1,0 +1,167 @@
+---
+title: "Introduction to R"
+author: "Sarah LaRocca"
+date: "24 June 2016"
+output:
+  revealjs::revealjs_presentation:
+    theme: solarized
+    highlight: tango
+    center: false
+    transition: slide
+    reveal_options:
+      slideNumber: true
+---
+
+## Outline
+
+- Introduction
+- Getting started
+- R basics
+- Manipulating data
+- Modeling data
+- Visualizing data
+- Source control
+
+## Introduction
+
+- `R` is a software environment for data manipulation, calculation, modeling, and graphical display.
+- Primary use case is for data analysis and statistics, but has many other potential applications.
+- Consists of a base environment with a small number of standard packages, and many optional packages which can be installed as needed.
+- Has amusing version names--the most recent version is called "Bug in Your Hair" and the previous version was called "Very, Very Secure Dishes."
+
+Source: https://cran.r-project.org/doc/manuals/R-intro.pdf
+
+## Getting started
+
+- R and RStudio Server are installed on an edge node of our cluster and can be accessed via a web browser.
+- Log in using your AZCORP ID and password at: http://rstudio.amer.zurich.corp:8787/
+
+## R basics
+```{r, eval=FALSE}
+
+# Comments start with a hash symbol
+
+q() # quit
+
+help() # help
+
+getwd() # get current working directory
+
+setwd('/home/testdirectory/') # set working directory to testdirectory
+
+rm(list=ls()) # remove all objects from the workspace
+
+```
+
+## Expressions and assignment
+
+- Standard arithmetic operators: `+`, `-`, `*`, `/`
+
+- Relational operators: `<=`, `<`, `==`, `>`, `>=`, `!=`
+
+- Logical operators: `|`, `&`
+
+- Assignment operator: `<-`
+
+## Expressions and assignment
+```{r}
+1 + 2
+1 + 2 == 3
+x <- 3
+x
+
+```
+
+## Basic data types
+
+- Numeric
+- Integer
+- Complex
+- Logical
+- Character
+
+`class(x)` will give the class name of `x`.
+
+## Vectors
+
+- A vector is a single entity consisting of an ordered collection of numbers.
+```{r}
+a <- c(1,2,5.3,6,-2,4) # numeric vector
+b <- c("apple","banana","pear") # character vector
+c <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) #logical vector
+
+```
+
+## Arrays and matrices
+
+- An array can be considered as a multiply subscripted collection of data entries, for example numeric.
+- A matrix is a two-dimensional array.
+```{r}
+A = matrix( 
+    c(2, 4, 3, 1, 5, 7), # the data elements 
+    nrow=2,              # number of rows 
+    ncol=3,              # number of columns 
+    byrow = TRUE)        # fill matrix by rows
+
+A
+```
+
+## Lists
+
+- A list is an object consisting of an ordered collection of objects known as its components.
+- Components do not need to be of the same type.
+```{r}
+person <- list(name="Fred",
+               wife="Mary",
+               no_children=3,
+               child_ages=c(4,7,9))
+
+person
+
+```
+## Lists
+
+```{r}
+n = c(2, 3, 5) 
+s = c("aa", "bb", "cc", "dd", "ee") 
+b = c(TRUE, FALSE, TRUE, FALSE, FALSE) 
+x = list(n, s, b, 3)   # x contains copies of n, s, b
+
+x
+
+```
+
+## Data frames
+
+- A data frame is a list of vectors with the same length.
+- The components must be vectors (numeric, character, or logical), factors, numeric matrices,
+lists, or other data frames.
+
+```{r}
+n = c(2, 3, 5) 
+s = c("aa", "bb", "cc") 
+b = c(TRUE, FALSE, TRUE) 
+df = data.frame(n, s, b) 
+
+df
+```
+
+## Useful `R` libraries from Hadley Wickham
+
+- `dplyr` shortcuts for subsetting, summarizing, rearranging, and joining together data sets
+- `tidyr` tools for changing the layout of your data sets
+- `stringr` tools for regular expressions and character strings
+- `lubridate` tools for working with dates and times
+- `ggplot2` uses the 'grammar of graphics' to build layered, customizable plots
+
+```{r, eval=FALSE}
+library(dplyr)
+```
+
+## Reading data
+```{r}
+weather <- read.csv('data/weather.csv')
+
+class(weather)
+summary(weather)
+```
